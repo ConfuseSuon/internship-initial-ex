@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Validating Form</title>
+    <style>
+      .hero {
+        border-radius: 10px;
+        padding: 20px;
+      }
+      .success {
+        outline: none;
+        box-shadow: 0 0 10px green;
+        border: 2px solid rgb(10, 179, 10);
+      }
+      .alert {
+        outline: none;
+        box-shadow: 0 0 10px red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login</h1>
+      <div class="form-container">
+        <form action="">
+          <input
+            id="username"
+            type="text"
+            placeholder="Enter a username"
+            oninput="validateForm(this)"
+          />
+          <input
+            id="password"
+            type="password"
+            placeholder="Enter a password"
+            oninput="validateForm(this)"
+          />
+        </form>
+      </div>
+    </div>
+    <script>
+      function validateForm(e) {
+        !e.value ? (e.className = "alert") : (e.className = "success");
+        !e.value ? (e.className = "alert") : (e.className = "success");
+      }
+    </script>
+  </body>
+</html>

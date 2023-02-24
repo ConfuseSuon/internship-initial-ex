@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>World Best - Stopwatch</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      #time-container {
+        /* border: 2px solid red; */
+        height: 40px;
+        width: 90px;
+      }
+      .main {
+        background: #cccccc;
+        height: 100vh;
+        width: 100vw;
+      }
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 500px;
+        width: 1000px;
+        /* border: 2px solid red;s */
+        margin: auto;
+      }
+      #time-container {
+        padding: 40px 0;
+        color: black;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main">
+      <div class="container">
+        <p id="time-container"></p>
+        <div class="buttons">
+          <button id="start">Start</button>
+          <button id="stop">Stop</button>
+          <button id="reset">Reset</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      let [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+      let timerRef = document.querySelector("#time-container");
+      let empty = null;
+
+      document.getElementById("start").addEventListener("click", () => {
+        if (empty !== null) {
+          clearInterval(empty);
+        }
+        empty = setInterval(displayTimer, 10);
+      });
+
+      document.getElementById("stop").addEventListener("click", () => {
+        clearInterval(empty);
+      });
+
+      document.getElementById("reset").addEventListener("click", () => {
+        clearInterval(empty);
+        [milliseconds, seconds, minutes, hours] = [0, 0, 0, 0];
+        timerRef.innerHTML = "00 : 00 : 00 : 000 ";
+      });
+
+      function displayTimer() {
+        milliseconds += 10;
+        if (milliseconds == 1000) {
+          milliseconds = 0;
+          seconds++;
+          if (seconds == 60) {
+            seconds = 0;
+            minutes++;
+            if (minutes == 60) {
+              minutes = 0;
+              hours++;
+            }
+          }
+        }
+
+        let h = hours < 10 ? "0" + hours : hours;
+        let m = minutes < 10 ? "0" + minutes : minutes;
+        let s = seconds < 10 ? "0" + seconds : seconds;
+        let ms =
+          milliseconds < 10
+            ? "00" + milliseconds
+            : milliseconds < 100
+            ? "0" + milliseconds
+            : milliseconds;
+
+        timerRef.innerHTML = ` ${h} : ${m} : ${s} : ${ms}`;
+      }
+    </script>
+  </body>
+</html>
